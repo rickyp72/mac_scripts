@@ -56,7 +56,9 @@ dscl . -passwd /Users/filevault $DISKPASS
 dscl . -create /Users/filevault UserShell /usr/bin/false
 dscl . -create /Users/filevault UniqueID "$DISKID"
 
+# Add user to filevault user list
 defaults write com.apple.loginwindow HiddenUsersList -array-add filevault
+# show new user in filevault login screen
 defaults write /Library/Preferences/com.apple.loginwindow SHOWFULLNAME -int 1
 DISKPASS=$DISKPASS expect -c 'spawn /usr/bin/fdesetup enable -user filevault; expect ":"; send "$env(DISKPASS)\n"; expect eof'
 pmset destroyfvkeyonstandby 1 hibernatemode 25
